@@ -9,7 +9,7 @@
 
 // For MMT test, just change the value of strength and MODE appropriately
 #define strength 256
-#define MODE 1 // 1=>ECB 2=>CBC 3=>CTR
+#define MODE 2 // 1=>ECB 2=>CBC 3=>CTR
 
 #if strength==128
 #define KEY_LEN LEA_128_KEY_LEN
@@ -34,11 +34,11 @@
 #if MODE==1
 int main()
 {
-	char fn_req[32], fn_rsp[32];
-	FILE* fp_req, * fp_rsp;
-	LEA_MMT_ECB test_vec_ecb;
-	unsigned char decrypted[160];
-	int done;
+	char fn_req[32]={0,}, fn_rsp[32]={0,};
+	FILE *fp_req=NULL, * fp_rsp=NULL;
+	LEA_MMT_ECB test_vec_ecb={{0,},{0,},{0,}};
+	unsigned char decrypted[160]={0,};
+	int done=0;
 	int iter = 0;
 	
 	// Create the Reponse file
@@ -102,11 +102,11 @@ int main()
 #elif MODE==2
 int main()
 {
-	char fn_req[32], fn_rsp[32];
-	FILE* fp_req, * fp_rsp;
-	LEA_MMT_CBC test_vec_cbc;
-	unsigned char decrypted[160];
-	int done;
+	char fn_req[32]={0,}, fn_rsp[32]={0,};
+	FILE *fp_req=NULL, *fp_rsp=NULL;
+	LEA_MMT_CBC test_vec_cbc={{0,},{0,},{0,}};
+	unsigned char decrypted[160]={0,};
+	int done=0;
 	int iter = 0;
 
 	// Create the Reponse file
@@ -180,11 +180,11 @@ int main()
 #elif MODE==3
 int main()
 {
-	char fn_req[32], fn_rsp[32];
-	FILE* fp_req, * fp_rsp;
-	LEA_MMT_CTR test_vec_ctr;
-	unsigned char decrypted[160];
-	int done;
+	char fn_req[32]={0,}, fn_rsp[32]={0,};
+	FILE *fp_req=NULL, *fp_rsp=NULL;
+	LEA_MMT_CTR test_vec_ctr={{0,},{0,},{0,}};
+	unsigned char decrypted[160]={0,};
+	int done=0;
 	int iter = 0;
 
 	// Create the Reponse file

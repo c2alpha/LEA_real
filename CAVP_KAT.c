@@ -25,11 +25,11 @@
 #if MODE==1
 int main()
 {
-	char fn_req[32], fn_rsp[32];
-	FILE* fp_req, * fp_rsp;
-	unsigned char pt[LEA_BLOCK_LEN], ct[LEA_BLOCK_LEN], decrypted[LEA_BLOCK_LEN];
-	unsigned char mk[LEA_MAX_KEY_LEN];// Master key
-	int done;
+	char fn_req[32]={0,}, fn_rsp[32]={0,};
+	FILE *fp_req=NULL, *fp_rsp=NULL;
+	unsigned char pt[LEA_BLOCK_LEN]={0,}, ct[LEA_BLOCK_LEN]={0,}, decrypted[LEA_BLOCK_LEN]={0,};
+	unsigned char mk[LEA_MAX_KEY_LEN]={0,};// Master key
+	int done=0;
 
 	// Create the Reponse file
 	sprintf(fn_rsp, "LEA%d(ECB)_KAT.rsp", strength);
@@ -90,11 +90,11 @@ int main()
 #elif MODE==2
 int main()
 {
-	char fn_req[32], fn_rsp[32];
-	FILE* fp_req, * fp_rsp;
-	unsigned char pt[LEA_BLOCK_LEN], ct[LEA_BLOCK_LEN], decrypted[LEA_BLOCK_LEN], iv[LEA_BLOCK_LEN];
-	unsigned char mk[LEA_MAX_KEY_LEN];// Master key
-	int done;
+	char fn_req[32]={0,}, fn_rsp[32]={0,};
+	FILE *fp_req=NULL, *fp_rsp=NULL;
+	unsigned char pt[LEA_BLOCK_LEN]={0,}, ct[LEA_BLOCK_LEN]={0,}, decrypted[LEA_BLOCK_LEN]={0,}, iv[LEA_BLOCK_LEN]={0,};
+	unsigned char mk[LEA_MAX_KEY_LEN]={0,};// Master key
+	int done=0;
 
 	// Create the Reponse file
 	sprintf(fn_rsp, "LEA%d(CBC)_KAT.rsp", strength);
@@ -162,11 +162,11 @@ int main()
 #elif MODE==3
 int main()
 {
-	char fn_req[32], fn_rsp[32];
-	FILE* fp_req, * fp_rsp;
-	unsigned char pt[LEA_BLOCK_LEN], ct[LEA_BLOCK_LEN], decrypted[LEA_BLOCK_LEN], iv[LEA_BLOCK_LEN];
-	unsigned char mk[LEA_MAX_KEY_LEN];// Master key
-	int done;
+	char fn_req[32]={0,}, fn_rsp[32]={0,};
+	FILE *fp_req=NULL, *fp_rsp=NULL;
+	unsigned char pt[LEA_BLOCK_LEN]={0,}, ct[LEA_BLOCK_LEN]={0,}, decrypted[LEA_BLOCK_LEN]={0,}, iv[LEA_BLOCK_LEN]={0,};
+	unsigned char mk[LEA_MAX_KEY_LEN]={0,};// Master key
+	int done=0;
 
 	// Create the Reponse file
 	sprintf(fn_rsp, "LEA%d(CTR)_KAT.rsp", strength);

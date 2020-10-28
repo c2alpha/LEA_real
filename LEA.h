@@ -30,6 +30,7 @@ typedef struct
 	unsigned char c[160];
 } LEA_MMT_ECB;
 
+
 typedef struct
 {
 	unsigned char mk[LEA_MAX_KEY_LEN];

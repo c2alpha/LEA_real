@@ -15,7 +15,7 @@ int LEA_Key_Schedule(uint32_t RndKeys[LEA_MAX_RNDS][LEA_RNDKEY_WORD_LEN],
                      const unsigned char MasterKey[LEA_MAX_KEY_LEN], const int KeyBytes)
 {
     uint32_t T[8] = { 0x0, };
-    int i;
+    int i=0;
 
     if (RndKeys == NULL || MasterKey == NULL)
         return -1;
@@ -119,9 +119,9 @@ int LEA_Key_Schedule(uint32_t RndKeys[LEA_MAX_RNDS][LEA_RNDKEY_WORD_LEN],
 void LEA_Encryption(unsigned char ct[LEA_BLOCK_LEN], const unsigned char pt[LEA_BLOCK_LEN],
                     uint32_t RndKeys[LEA_MAX_RNDS][LEA_RNDKEY_WORD_LEN], const int Nr)
 {
-    uint32_t X0, X1, X2, X3;
-    uint32_t temp;
-    int i;
+    uint32_t X0=0, X1=0, X2=0, X3=0;
+    uint32_t temp=0;
+    int i=0;
 
     if (RndKeys == NULL || ct == NULL || pt==NULL)
         return;
@@ -157,9 +157,9 @@ void LEA_Encryption(unsigned char ct[LEA_BLOCK_LEN], const unsigned char pt[LEA_
 void LEA_Decryption(unsigned char pt[LEA_BLOCK_LEN], const unsigned char ct[LEA_BLOCK_LEN],
                     uint32_t RndKeys[LEA_MAX_RNDS][LEA_RNDKEY_WORD_LEN], const int Nr)
 {
-    uint32_t X0, X1, X2, X3;
-    uint32_t temp0, temp1, temp2;
-    int i;
+    uint32_t X0=0, X1=0, X2=0, X3=0;
+    uint32_t temp0=0, temp1=0, temp2=0;
+    int i=0;
 
     if (RndKeys == NULL || ct == NULL || pt == NULL)
         return;
@@ -198,9 +198,9 @@ void LEA_Decryption(unsigned char pt[LEA_BLOCK_LEN], const unsigned char ct[LEA_
 void ECB_LEA_Enc(unsigned char *ct, const unsigned char *pt,
                  const unsigned char MasterKey[LEA_MAX_KEY_LEN], const int pt_size, const int KeyBytes)
 {
-    uint32_t RK[LEA_MAX_RNDS][LEA_RNDKEY_WORD_LEN];
-    int LEA_Rounds; 
-    int num_Blocks;
+    uint32_t RK[LEA_MAX_RNDS][LEA_RNDKEY_WORD_LEN]={0,};
+    int LEA_Rounds=0; 
+    int num_Blocks=0;
 
     if(pt_size&0xf)//In ECB mode input plain texts can not contain partial block
         return;
@@ -233,9 +233,9 @@ void ECB_LEA_Enc(unsigned char *ct, const unsigned char *pt,
 void ECB_LEA_Dec(unsigned char *pt, const unsigned char *ct,
                  const unsigned char MasterKey[LEA_MAX_KEY_LEN], const int ct_size, const int KeyBytes)
 {
-    uint32_t RK[LEA_MAX_RNDS][LEA_RNDKEY_WORD_LEN];
-    int LEA_Rounds;
-    int num_Blocks;
+    uint32_t RK[LEA_MAX_RNDS][LEA_RNDKEY_WORD_LEN]={0,};
+    int LEA_Rounds=0;
+    int num_Blocks=0;
 
     if(ct_size&0xf)
         return;
@@ -265,11 +265,11 @@ void ECB_LEA_Dec(unsigned char *pt, const unsigned char *ct,
 void CBC_LEA_Enc(unsigned char *ct, const unsigned char *pt, const unsigned char MasterKey[LEA_MAX_KEY_LEN],
                  const unsigned char IV[LEA_BLOCK_LEN], const int pt_size, const int KeyBytes)
 {
-    uint32_t RK[LEA_MAX_KEY_LEN][LEA_RNDKEY_WORD_LEN];
-    int i,j;
-    unsigned char X[LEA_BLOCK_LEN];
-    int LEA_Rounds;
-    int num_Blocks;
+    uint32_t RK[LEA_MAX_KEY_LEN][LEA_RNDKEY_WORD_LEN]={0,};
+    int i=0,j=0;
+    unsigned char X[LEA_BLOCK_LEN]={0,};
+    int LEA_Rounds=0;
+    int num_Blocks=0;
  
     if(pt_size&0xf)//In CBC mode input plain texts can not contain partial block
         return;
@@ -306,35 +306,35 @@ void CBC_LEA_Enc(unsigned char *ct, const unsigned char *pt, const unsigned char
 void CBC_LEA_Dec(unsigned char *pt, const unsigned char *ct, const unsigned char MasterKey[LEA_MAX_KEY_LEN],
                  const unsigned char IV[LEA_BLOCK_LEN], const int ct_size, const int KeyBytes)
 {
-     uint32_t RK[LEA_MAX_KEY_LEN][LEA_RNDKEY_WORD_LEN];
-     int i,j;
-     unsigned char X[LEA_BLOCK_LEN];
-     int LEA_Rounds;
-     int num_Blocks;
+     uint32_t RK[LEA_MAX_KEY_LEN][LEA_RNDKEY_WORD_LEN]={0,};
+     int i=0,j=0;
+     unsigned char X[LEA_BLOCK_LEN]={0,};
+     int LEA_Rounds=0;
+     int num_Blocks=0;
 
-     if(ct_size&0xf)
-        return;
+    if(ct_size&0xf)
+       return;
     
-     if (MasterKey == NULL || pt == NULL || ct == NULL)
-         return;
+    if (MasterKey == NULL || pt == NULL || ct == NULL)
+        return;
 
     if(KeyBytes!=16 && KeyBytes!=24 && KeyBytes!=32)
         return;
      
-     LEA_Rounds = LEA_Key_Schedule(RK, MasterKey, KeyBytes);
-     num_Blocks = ct_size >> 4;
+    LEA_Rounds = LEA_Key_Schedule(RK, MasterKey, KeyBytes);
+    num_Blocks = ct_size >> 4;
 
-     LEA_Decryption(X,ct,RK,LEA_Rounds);
+    LEA_Decryption(X,ct,RK,LEA_Rounds);
 
-     for(i=0;i<LEA_BLOCK_LEN; i++)
+    for(i=0;i<LEA_BLOCK_LEN; i++)
         pt[i]=X[i]^IV[i];
 
-     for(i=1; i<num_Blocks; i++)
-     {
-         LEA_Decryption(X,ct+(i<<4),RK,LEA_Rounds);
-         for(j=0; j<LEA_BLOCK_LEN; j++)
-             pt[(i<<4)+j]=X[j]^ct[((i-1)<<4)+j];
-     }
+    for(i=1; i<num_Blocks; i++)
+    {
+        LEA_Decryption(X,ct+(i<<4),RK,LEA_Rounds);
+        for(j=0; j<LEA_BLOCK_LEN; j++)
+            pt[(i<<4)+j]=X[j]^ct[((i-1)<<4)+j];
+    }
 }
 
 /*
@@ -346,15 +346,16 @@ void CBC_LEA_Dec(unsigned char *pt, const unsigned char *ct, const unsigned char
 void CTR_LEA_Enc(unsigned char *ct, const unsigned char *pt, const unsigned char MasterKey[LEA_MAX_KEY_LEN],
                  const unsigned char IV[LEA_BLOCK_LEN], const int pt_size, const int KeyBytes)
 {
-    uint32_t RK[LEA_MAX_KEY_LEN][LEA_RNDKEY_WORD_LEN];
-    int i, j;
-    unsigned char CTR[LEA_BLOCK_LEN];
-    unsigned char Y[LEA_BLOCK_LEN];
-    int n;
+    uint32_t RK[LEA_MAX_KEY_LEN][LEA_RNDKEY_WORD_LEN]={0,};
+    int i=0, j=0;
+    unsigned char CTR[LEA_BLOCK_LEN]={0,};
+    unsigned char Y[LEA_BLOCK_LEN]={0,};
+    int n=0;
     int flag = 1;
+    int LEA_Rounds=0;
     // Make number of blocks and remain chars
-    int num_Blocks;
-    int remain_chars;
+    int num_Blocks=0;
+    int remain_chars=0;
     
     if (MasterKey == NULL || pt == NULL || ct == NULL)
         return;
@@ -362,7 +363,7 @@ void CTR_LEA_Enc(unsigned char *ct, const unsigned char *pt, const unsigned char
     if(KeyBytes!=16 && KeyBytes!=24 && KeyBytes!=32)
         return;
 
-    int LEA_Rounds = LEA_Key_Schedule(RK, MasterKey, KeyBytes);
+    LEA_Rounds = LEA_Key_Schedule(RK, MasterKey, KeyBytes);
     num_Blocks = pt_size >> 4;
     remain_chars = pt_size & 0xf;
 
@@ -416,16 +417,17 @@ void CTR_LEA_Enc(unsigned char *ct, const unsigned char *pt, const unsigned char
 void CTR_LEA_Dec(unsigned char *pt, const unsigned char *ct, const unsigned char MasterKey[LEA_MAX_KEY_LEN], 
                  const unsigned char IV[LEA_BLOCK_LEN], const int ct_size, const int KeyBytes)
 {
-    uint32_t RK[LEA_MAX_KEY_LEN][LEA_RNDKEY_WORD_LEN];
-    int i, j;
-    unsigned char CTR[LEA_BLOCK_LEN];
-    unsigned char Y[LEA_BLOCK_LEN];
-    int n;
+    uint32_t RK[LEA_MAX_KEY_LEN][LEA_RNDKEY_WORD_LEN]={0,};
+    int i=0, j=0;
+    unsigned char CTR[LEA_BLOCK_LEN]={0,};
+    unsigned char Y[LEA_BLOCK_LEN]={0,};
+    int n=0;
     int flag = 1;
+    int LEA_Rounds=0;
     // Make number of blocks and remain chars
-    int num_Blocks; 
-    int remain_chars; 
-
+    int num_Blocks=0; 
+    int remain_chars=0; 
+    
 
     if (MasterKey == NULL || pt == NULL || ct == NULL)
         return;
@@ -433,7 +435,7 @@ void CTR_LEA_Dec(unsigned char *pt, const unsigned char *ct, const unsigned char
     if(KeyBytes!=16 && KeyBytes!=24 && KeyBytes!=32)
         return;
 
-    int LEA_Rounds = LEA_Key_Schedule(RK, MasterKey, KeyBytes);
+    LEA_Rounds = LEA_Key_Schedule(RK, MasterKey, KeyBytes);
     num_Blocks = ct_size >> 4;
     remain_chars = ct_size & 0xf;
 
