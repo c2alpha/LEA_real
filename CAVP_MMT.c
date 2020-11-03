@@ -8,8 +8,8 @@
 */
 
 // For MMT test, just change the value of strength and MODE appropriately
-#define strength 256
-#define MODE 2 // 1=>ECB 2=>CBC 3=>CTR
+#define strength 128
+#define MODE 1 // 1=>ECB 2=>CBC 3=>CTR
 
 #if strength==128
 #define KEY_LEN LEA_128_KEY_LEN

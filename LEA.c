@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "LEA.h"
 
 const uint32_t delta[8] = { 0xc3efe9db,0x44626b02,0x79e27c8a,0x78df30ec,
@@ -42,6 +43,9 @@ int LEA_Key_Schedule(uint32_t RndKeys[LEA_MAX_RNDS][LEA_RNDKEY_WORD_LEN],
             RndKeys[i][4] = T[3];
             RndKeys[i][5] = T[1];
         }
+
+        //이런식으로 제로화 필요하다는건가...
+        memset(T, 0, sizeof(T));
         
         return LEA_128_RNDS;
     }
